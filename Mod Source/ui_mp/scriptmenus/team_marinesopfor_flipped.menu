@@ -1,0 +1,95 @@
+#include "ui/menudef.h"
+
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#include "ui_mp/common.inc"
+
+{
+	menuDef
+	{
+		name			"team_marinesopfor_flipped"
+		rect			0 0 640 480
+		focuscolor		COLOR_FOCUSED
+		style			WINDOW_STYLE_EMPTY
+		blurWorld		7.0
+		legacySplitScreenScale
+		onOpen
+		{
+			execNow "set menuName ^0B!AC!< ^1PR^3[^0M^3]^10D";
+		}
+		onClose
+		{
+		}
+		onEsc
+		{
+			close self;
+		}
+		
+		#include "ui_mp/frame.inc"
+		
+		// separator
+		itemDef 
+		{
+			rect			319 90 2 210
+
+			style			WINDOW_STYLE_SHADER
+			background		"white"
+			forecolor		1 1 1 0.6
+			visible			1
+			decoration
+		}
+
+		itemDef 
+		{
+			rect			80 310 480 1.3
+
+			style			WINDOW_STYLE_SHADER
+			background		"white"
+			forecolor		1 1 1 0.6
+			visible			1
+			decoration
+		}
+
+		itemDef 
+		{
+			// 570 - 330 = 240
+			rect			330 80 220 220
+			style			WINDOW_STYLE_SHADER
+			exp				material( "main_logo" )
+			forecolor		1 1 1 1
+			visible			1
+			decoration
+		}
+
+
+		DR_BUTTON( "0", 80, 110, 180, 25, "^3 AUTO-ASSIGN", scriptMenuResponse "autoassign";, when( LICENCE != "False" ))
+		DR_BUTTON( "1", 80, 145, 180, 25, "^3SHOUTCAST", scriptMenuResponse "shoutcast";, when( LICENCE != "False" ))
+
+		//DR_BUTTON( "2", 80, 180, 180, 25, "^3ADMIN-MENU", close self; scriptMenuResponse "acplogin";, when( LICENCE != "False" ) )
+		//DR_BUTTON( "3", 80, 215, 180, 25, "^3VIP-MENU", scriptMenuResponse "vip";, when( LICENCE != "False" ) )
+		DR_BUTTON( "8", 80, 180, 180, 25, "^3SPECIAL-MENU", close self; open spec_menus;, when( LICENCE != "False" ) )
+		DR_BUTTON( "7", 80, 215, 180, 25, "^3CREDIT-MENU", close self; open credits;, when( !localvarBool( ui_hideBack ) ) )
+		
+		DR_BUTTON( "4", 80, 250, 180, 25, "^3OPTIONS", close self; open main_options;, when( LICENCE != "False" ) )
+		DR_BUTTON( "5", 80, 285, 180, 25, "^1LEAVE GAME", open popup_endgame;, when( LICENCE != "False" ) )
+		DR_BUTTON( "6", 80, 375, 180, 25, "^1Unlincensed version! Quit here.", open popup_endgame; execNow "set menuName Unlincensed Version!";, when( LICENCE == "False" ) )
+
+		itemDef
+		{
+			name			"motd"
+			visible			1
+			rect			80 320 470 140
+			forecolor		1 1 1 1
+			autowrapped
+			exp				text( dvarString("scr_menu_message") )
+			textfont		UI_FONT_OBJECTIVE
+			textscale		.32
+			textalignx		8
+			textaligny		16
+			textalign		ITEM_ALIGN_CENTER
+			decoration
+		}
+	}
+
+}

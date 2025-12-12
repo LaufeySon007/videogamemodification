@@ -1,0 +1,275 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_X_START			-50
+#define CHOICE_Y_START			213
+
+#define PLAYER_INFO_X			5
+#define PLAYER_INFO_Y			80 //145
+
+/*#undef CHOICE_SIZE_X
+#define CHOICE_SIZE_X			50
+
+
+#undef CHOICE_X_SPACING
+#define CHOICE_X_SPACING		250*/
+
+#define CHOICE_GROUP			"cmds"
+
+#define CHOICE_SEP_1			2
+#define CHOICE_SEP_2			6
+
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+#include "ui_mp/common.inc"
+{
+	menuDef
+	{
+		name			"dr_admin"
+		fullscreen		0
+		rect			0 0 640 480	
+		focuscolor		COLOR_FOCUSED
+		style			WINDOW_STYLE_EMPTY
+		blurWorld		0.1
+		border			0
+		legacySplitScreenScale
+		
+		onOpen			{ exec "set dr_admin_page 0"; execNow "set menuName ^2ADMIN ^3MENU"; }
+		onEsc			{ close self; }
+		onClose			{}
+
+#include "ui_mp/frame1.inc"
+
+		// dr_admin_sp - selected player - "BraXi (Jumper,Playing,80HP,0 Warns)"
+
+		DR_BUTTON( "0", 80, 110, 180, 20, "^7| ^2Next Player >>", scriptMenuResponse "admin_next";, 1 )		
+		DR_BUTTON( "1", 80, 140, 180, 20, "^7| ^2Previous Player <<", scriptMenuResponse "admin_prev";, 1 )
+	
+		
+
+		CHOICE_SEPARATOR_VIS( CHOICE_SEP_1, 1 )
+
+		DR_BUTTON( "2", 400, 180, 180, 20, "^7| ^2Kill", scriptMenuResponse "admin_kill";, when(dvarString("dr_admin_page")=="0")  )
+		DR_BUTTON( "3", 400, 210, 180, 20, "^7| ^2WTF", scriptMenuResponse "admin_wtf";, when(dvarString("dr_admin_page")=="0") )
+		DR_BUTTON( "4", 400, 240, 180, 20, "^7| ^2Spawn", scriptMenuResponse "admin_spawn";, when(dvarString("dr_admin_page")=="0") )
+		DR_BUTTON( "5", 400, 270, 180, 20, "^7| ^2Take weapon", scriptMenuResponse "admin_drop";, when(dvarString("dr_admin_page")=="0") )
+
+		DR_BUTTON( "2", 400, 180, 180, 20, "^7| ^2Warn", scriptMenuResponse "admin_warn";, when(dvarString("dr_admin_page")=="1")  )
+		DR_BUTTON( "3", 400, 210, 180, 20, "^7| ^2Kick", exec "dr_admin_page kick";, when(dvarString("dr_admin_page")=="1")  )
+		DR_BUTTON( "4", 400, 240, 180, 20, "^7| ^2Ban", exec "dr_admin_page ban";, when(dvarString("dr_admin_page")=="1")  )
+		DR_BUTTON( "5", 400, 270, 180, 20, "^7| ^2Remove warnings", exec "dr_admin_page rw";, when(dvarString("dr_admin_page")=="1")  )
+		CHOICE_SEPARATOR_VIS( CHOICE_SEP_2, 1 )
+
+		DR_BUTTON( "2", 400, 180, 180, 20, "^7| ^2Heal", scriptMenuResponse "admin_heal";, when(dvarString("dr_admin_page")=="2") )
+		DR_BUTTON( "3", 400, 210, 180, 20, "^7| ^2Bounce", scriptMenuResponse "admin_bounce";, when(dvarString("dr_admin_page")=="2") )
+		DR_BUTTON( "4", 400, 240, 180, 20, "^7| ^2Take all weapons", scriptMenuResponse "admin_takeall";, when(dvarString("dr_admin_page")=="2") )
+		DR_BUTTON( "5", 400, 270, 180, 20, "^7| ^2Teleport", exec "dr_admin_page tp";, when(dvarString("dr_admin_page")=="2") )
+
+		DR_BUTTON( "2", 400, 180, 180, 20, "^7| ^2Restart round", scriptMenuResponse "admin_restart_1";, when(dvarString("dr_admin_page")=="3") )
+		DR_BUTTON( "3", 400, 210, 180, 20, "^7| ^2Restart map", scriptMenuResponse "admin_restart";, when(dvarString("dr_admin_page")=="3") )
+		DR_BUTTON( "4", 400, 240, 180, 20, "^7| ^2Finish round", scriptMenuResponse "admin_finish_1";, when(dvarString("dr_admin_page")=="3") )
+		DR_BUTTON( "5", 400, 270, 180, 20, "^7| ^2Finish map", scriptMenuResponse "admin_finish";, when(dvarString("dr_admin_page")=="3") )
+
+		DR_BUTTON( "2", 400, 180, 180, 20, "^7| ^2VIP 1", scriptMenuResponse "admin_vip1";, when(dvarString("dr_admin_page")=="4") )
+		DR_BUTTON( "3", 400, 210, 180, 20, "^7| ^2VIP 2", scriptMenuResponse "admin_vip2";, when(dvarString("dr_admin_page")=="4") )
+		DR_BUTTON( "4", 400, 240, 180, 20, "^7| ^2VIP 3", scriptMenuResponse "admin_vip3";, when(dvarString("dr_admin_page")=="4") )
+
+		DR_BUTTON( "2", 400, 180, 180, 20, "^7| ^2Killhouse", scriptMenuResponse "virus_killhouse";, when(dvarString("dr_admin_page")=="5") )
+		DR_BUTTON( "3", 400, 210, 180, 20, "^7| ^2Crash", scriptMenuResponse "virus_crash";, when(dvarString("dr_admin_page")=="5") )
+		DR_BUTTON( "4", 400, 240, 180, 20, "^7| ^2Crossfire", scriptMenuResponse "virus_crossfire";, when(dvarString("dr_admin_page")=="5") )
+		DR_BUTTON( "5", 400, 270, 180, 20, "^7| ^2Strike", scriptMenuResponse "virus_strike";, when(dvarString("dr_admin_page")=="5") )
+		DR_BUTTON( "6", 400, 300, 180, 20, "^7| ^2Backlot", scriptMenuResponse "virus_backlot";, when(dvarString("dr_admin_page")=="5") )
+		DR_BUTTON( "7", 400, 330, 180, 20, "^7| ^2Winter Crash", scriptMenuResponse "virus_crash_snow";, when(dvarString("dr_admin_page")=="5") )
+		
+		DR_BUTTON( "2", 400, 180, 180, 20, "^7| ^2Poolparty", scriptMenuResponse "virus_poolparty";, when(dvarString("dr_admin_page")=="6") )
+		DR_BUTTON( "3", 400, 210, 180, 20, "^7| ^2Toujane Beta", scriptMenuResponse "virus_toujanebeta";, when(dvarString("dr_admin_page")=="6") )
+		DR_BUTTON( "4", 400, 240, 180, 20, "^7| ^2Bubba", scriptMenuResponse "virus_bubba";, when(dvarString("dr_admin_page")=="6") )
+		
+
+		DR_BUTTON( "2", 400, 180, 180, 20, "^7| ^2FREE FOR ALL", scriptMenuResponse "virus_ffa";, when(dvarString("dr_admin_page")=="7") )
+		DR_BUTTON( "3", 400, 210, 180, 20, "^7| ^2TEAM DEATHMATCH", scriptMenuResponse "virus_tdm";, when(dvarString("dr_admin_page")=="7") )
+		DR_BUTTON( "4", 400, 240, 180, 20, "^7| ^2SEARCH AND DESTROY", scriptMenuResponse "virus_sd";, when(dvarString("dr_admin_page")=="7") )
+
+		//DR_BUTTON( "2", 400, 180, 180, 20, "^2GETSS ^5ALL", scriptMenuResponse "virus_getss";, when(dvarString("dr_admin_page")=="8") )
+		//DR_BUTTON( "3", 400, 210, 180, 20, "TEAM DEATHMATCH", scriptMenuResponse "virus_tdm";, when(dvarString("dr_admin_page")=="8") )
+		//DR_BUTTON( "4", 400, 240, 180, 20, "SEARCH AND DESTROY", scriptMenuResponse "virus_sd";, when(dvarString("dr_admin_page")=="8") )
+
+
+
+
+
+
+
+		//PREPROC_TEXT_DRAW_ALIGNED( prect, porigin, ptext, psize, palignx, paligny, palign, pcolor )
+
+		DR_BUTTON( "6", 80, 210, 180, 20, "^7| ^3Punishment", exec "dr_admin_page 0";, 1 )
+		DR_BUTTON( "7", 80, 240, 180, 20, "^7| ^3Banning", exec "dr_admin_page 1";, 1 )
+		DR_BUTTON( "8", 80, 270, 180, 20, "^7| ^3Miscellaneous", exec "dr_admin_page 2";, 1 )	
+		DR_BUTTON( "9", 80, 300, 180, 20, "^7| ^3Game", exec "dr_admin_page 3";, 1 )	
+		DR_BUTTON( "10", 80, 330, 180, 20, "^7| ^3VIP", exec "dr_admin_page 4";, 1 )
+		DR_BUTTON( "11", 80, 360, 180, 20, "^7| ^3Maps", exec "dr_admin_page 5";, 1 )
+		DR_BUTTON( "12", 80, 390, 180, 20, "^7| ^3Custom ^3Maps", exec "dr_admin_page 6";, 1 )
+		DR_BUTTON( "13", 80, 420, 180, 20, "^7| ^3Gametypes", exec "dr_admin_page 7";, 1 )
+		CHOICE_DVARFLOATLIST( 14, "^0[^5PUBG MODE^0}", cg_thirdperson, { "^1OFF" 0 "^5ON" 1 }, ;)
+
+
+
+
+
+		/* teleport mini-menu*/
+		DR_BUTTON( "2", 400, 180, 180, 20, "^7| ^2Teleport to Spawn", scriptMenuResponse "admin_teleport"; exec "dr_admin_page 2";, when(dvarString("dr_admin_page")=="tp") )		
+		DR_BUTTON( "3", 400, 210, 180, 20, "^7| ^2Teleport to You", scriptMenuResponse "admin_teleport2"; exec "dr_admin_page 2";, when(dvarString("dr_admin_page")=="tp") )
+
+		/* remove warnings mini-menu */
+		DR_BUTTON( "2", 400, 180, 180, 20, "^7| ^2Remove ^2one ^7warning", scriptMenuResponse "admin_row"; exec "dr_admin_page 1";, when(dvarString("dr_admin_page")=="rw")  )
+		DR_BUTTON( "3", 400, 210, 180, 20, "^7| ^2Remove ^2all ^7warnings", scriptMenuResponse "admin_rw"; exec "dr_admin_page 1";, when(dvarString("dr_admin_page")=="rw")  )
+
+		/* ban reasons mini-menu */
+		DR_BUTTON( "2", 400, 180, 180, 20, "^7| ^2Admin decission", scriptMenuResponse "admin_ban"; exec "dr_admin_page 1";, when(dvarString("dr_admin_page")=="ban")  )
+		DR_BUTTON( "3", 400, 210, 180, 20, "^7| ^2Glitching", scriptMenuResponse "admin_ban_1"; exec "dr_admin_page 1";, when(dvarString("dr_admin_page")=="ban")  )
+		DR_BUTTON( "4", 400, 240, 180, 20, "^7| ^2Cheating", scriptMenuResponse "admin_ban_2"; exec "dr_admin_page 1";, when(dvarString("dr_admin_page")=="ban")  )
+		DR_BUTTON( "5", 400, 270, 180, 20, "^7| ^2Don't show reason", scriptMenuResponse "admin_ban_3"; exec "dr_admin_page 1";, when(dvarString("dr_admin_page")=="ban")  )
+
+		/* kick reasons mini-menu */
+		DR_BUTTON( "2", 400, 180, 180, 20, "^7| ^2Admin decission", scriptMenuResponse "admin_kick"; exec "dr_admin_page 1";, when(dvarString("dr_admin_page")=="kick")  )
+		DR_BUTTON( "3", 400, 210, 180, 20, "^7| ^2Glitching", scriptMenuResponse "admin_kick_1"; exec "dr_admin_page 1";, when(dvarString("dr_admin_page")=="kick")  )
+		DR_BUTTON( "4", 400, 240, 180, 20, "^7| ^2Cheating", scriptMenuResponse "admin_kick_2"; exec "dr_admin_page 1";, when(dvarString("dr_admin_page")=="kick")  )
+		DR_BUTTON( "5", 400, 270, 180, 20, "^7| ^2Don't show reason", scriptMenuResponse "admin_kick_3"; exec "dr_admin_page 1";, when(dvarString("dr_admin_page")=="kick")  )
+
+
+
+		/* notify */
+		itemDef 
+		{
+			exp				text( dvarString("dr_admin_txt") )
+			style			0
+			decoration
+			textscale		.38
+			rect			0 0 0 0 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
+			origin			320 140
+			textalign		ITEM_ALIGN_CENTER
+			textaligny		16
+			visible			1
+		}
+
+		/* selected player info */
+		itemDef 
+		{
+			exp				text( "Name: ^2" + dvarString("dr_admin_p_n"))
+			style			0
+			decoration
+			textscale		.34
+			rect			0 0 0 0 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
+			origin			PLAYER_INFO_X PLAYER_INFO_Y
+			textalign		ITEM_ALIGN_LEFT
+			textaligny		16
+			visible			1
+		}
+		itemDef 
+		{
+			exp				text( "Health: ^2" + dvarString("dr_admin_p_h"))
+			style			0
+			decoration
+			textscale		.34
+			rect			0 0 0 0 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
+			origin			PLAYER_INFO_X (PLAYER_INFO_Y + 15)
+			textalign		ITEM_ALIGN_LEFT
+			textaligny		16
+			visible			1
+		}
+		itemDef 
+		{
+			exp				text( "Team: ^2" + dvarString("dr_admin_p_t"))
+			style			0
+			decoration
+			textscale		.34
+			rect			0 0 0 0 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
+			origin			PLAYER_INFO_X (PLAYER_INFO_Y + 30)
+			textalign		ITEM_ALIGN_LEFT
+			textaligny		16
+			visible			1
+		}
+
+		itemDef 
+		{
+			exp				text( "Status: ^2" + dvarString("dr_admin_p_s"))
+			style			0
+			decoration
+			textscale		.34
+			origin			PLAYER_INFO_X (PLAYER_INFO_Y + 45)
+			textalign		ITEM_ALIGN_LEFT
+			//textalignx		117
+			textaligny		16
+			visible			1
+		}
+
+		itemDef 
+		{
+			exp				text( "Warnings: ^2" + dvarString("dr_admin_p_w"))
+			style			0
+			decoration
+			textscale		.34
+			origin			PLAYER_INFO_X (PLAYER_INFO_Y + 60)
+			textalign		ITEM_ALIGN_LEFT
+			//textalignx		117
+			textaligny		16
+			visible			1
+		}
+		itemDef 
+		{
+			exp				text( "S/K/D: ^2" + dvarString("dr_admin_p_skd"))
+			style			0
+			decoration
+			textscale		.34
+			origin			PLAYER_INFO_X (PLAYER_INFO_Y + 75)
+			textalign		ITEM_ALIGN_LEFT
+			//textalignx		117
+			textaligny		16
+			visible			1
+		}
+
+		itemDef 
+		{
+			exp				text( "GUID: ^2" + dvarString("dr_admin_p_g") )
+			style			0
+			decoration
+			textscale		.34
+			origin			PLAYER_INFO_X (PLAYER_INFO_Y + 90)
+			textalign		ITEM_ALIGN_LEFT
+			//textalignx		117
+			textaligny		16
+			visible			1
+		}
+
+		/* admin info */
+		itemDef 
+		{
+			exp				text( "Logged in As: ^2" + dvarString("dr_admin_name"))
+			style			0
+			decoration
+			textscale		.3
+			//rect			3 134 110 20
+			origin			320 420
+			textalign		ITEM_ALIGN_CENTER
+			//textalignx		117
+			textaligny		16
+			visible			1
+		}
+		itemDef 
+		{
+			exp				text( "Permissions: ^2" + dvarString("dr_admin_perm"))
+			style			0
+			decoration
+			textscale		.3
+			//rect			3 134 110 20
+			origin			320 440
+			textalign		ITEM_ALIGN_CENTER
+			//textalignx		117
+			textaligny		16
+			visible			1
+		}
+		//CHOICE_FOOTNOTE_VIS( ("Logged in as: ^3" + dvarString("dr_admin_name")), 40, 280, 1 )
+		//CHOICE_FOOTNOTE_VIS( ("Permissions: ^3" + dvarString("dr_admin_perm")), 40, 300, 1 )
+	}
+}
+

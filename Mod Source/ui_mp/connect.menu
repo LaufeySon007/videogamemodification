@@ -1,0 +1,61 @@
+#include "ui/menudef.h"
+#define WIDESCREEN_OFFSET			107 0
+{
+	menuDef 
+	{
+		name			"connect"
+		style			WINDOW_STYLE_FILLED
+		fullScreen		MENU_FALSE
+		focusColor		COLOR_FOCUSED
+		visible			MENU_FALSE		
+		backcolor		1 1 1 1
+		background		"$levelBriefing"
+		rect			FULLSCREEN_WIDE
+
+		/*itemDef 
+		{
+			name			"loadbar"
+			style			WINDOW_STYLE_LOADBAR
+			rect			-128 -84 256 64 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			origin			WIDESCREEN_OFFSET
+			background		"logo"
+			visible			1	decoration
+		}*/
+		
+		itemDef
+		{
+			rect			-150 -300 300 250 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			origin			WIDESCREEN_OFFSET
+			forecolor		0.1 0.1 0.1 0.4
+			style			WINDOW_STYLE_SHADER
+			background		"loading_logo"
+			visible 		1
+			decoration
+		}
+
+		// load progress bar
+		itemDef
+		{
+			name			"loadbar"
+			style			WINDOW_STYLE_LOADBAR
+			rect			-150 -300 300 250 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			forecolor		1 1 1 1
+			origin			WIDESCREEN_OFFSET
+			background		"loading_logo"
+			visible			1
+			decoration
+		}
+				// cod:mw logo
+		itemDef
+		{
+			visible			1
+			rect			0 0 180 100
+			forecolor		1 1 1 1
+			style			WINDOW_STYLE_SHADER
+			background		"kurac"
+			decoration
+		}
+
+		#include "ui/safearea.menu"
+	}
+}

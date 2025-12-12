@@ -1,0 +1,43 @@
+#include "ui/menudef.h"
+
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#include "ui_mp/common.inc"
+#include "ui_mp/login_common.inc"
+
+{
+	menuDef
+	{
+		name			"acplogin"
+		rect			0 0 640 480
+		focuscolor		COLOR_FOCUSED
+		style			WINDOW_STYLE_EMPTY
+		blurWorld		7.0
+		legacySplitScreenScale
+		onOpen
+		{
+			execNow "set menuName ^0B!AC!< ^1PR^3[^0M^3]^10D ^2ACP ^5Login";
+			setDvar login_info "openscriptmenu acplogin ";
+			setFocus "login";
+		}
+		onClose
+		{
+			setDvar login_info "";
+		}
+		onEsc
+		{
+			close self;
+			open team_marinesopfor;
+		}
+		
+		#include "ui_mp/login_frame.inc"
+		
+		TEXT_FIELD( "0", 160, 255, "login_info", "Login: " )
+		DR_BUTTON( "0", 170, 305, 50, 20, "Back", close self; open team_marinesopfor;, 1 )
+		DR_BUTTON( "1", 420, 305, 50, 20, "Log in", exec "vstr login_info";, 1 )
+	}
+}
+
+
+	

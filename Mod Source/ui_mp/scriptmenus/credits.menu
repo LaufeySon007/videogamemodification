@@ -1,0 +1,100 @@
+#include "ui/menudef.h"
+
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#include "ui_mp/common.inc"
+
+{
+	menuDef
+	{
+		name			"credits"
+		rect			0 0 640 480
+		focuscolor		COLOR_FOCUSED
+		style			WINDOW_STYLE_EMPTY
+		blurWorld		7.0
+		legacySplitScreenScale
+		onOpen
+		{
+			execNow "set menuName ^0B!AC!< ^1PR^3[^0M^3]^10D";
+		}
+		onClose
+		{
+		}
+		onEsc
+		{
+			close self;
+		}
+		
+
+	#include "ui_mp/frame_credits.inc"	
+
+	itemDef 
+	{ 
+		visible			1 
+		origin			320 210 
+		forecolor		1 1 1 1 
+		exp				text("^0B!AC!< ^1PR^3[^0M^3]^10D") 
+		textfont		UI_FONT_OBJECTIVE 
+		textscale		0.4 
+		textalignx		8
+		textaligny		16
+		textalign		ITEM_ALIGN_CENTER
+		decoration 
+	} 
+	itemDef 
+	{ 
+		visible			1 
+		origin			320 235 
+		forecolor		1 1 1 1 
+		exp				text("^7Server Owner : ^0B!ac!< ^2$ha^1do0^5") 
+		textfont		UI_FONT_OBJECTIVE 
+		textscale		0.3 
+		textalignx		8
+		textaligny		16
+		textalign		ITEM_ALIGN_CENTER
+		decoration 
+	} 
+	itemDef 
+	{ 
+		visible			1 
+		origin			320 250 
+		forecolor		1 1 1 1 
+		exp				text("^7Modded By : ^3>>^2VI[^3R^2]US^3<<") 
+		textfont		UI_FONT_OBJECTIVE 
+		textscale		0.3 
+		textalignx		8
+		textaligny		16
+		textalign		ITEM_ALIGN_CENTER
+		decoration 
+	} 
+	itemDef 
+	{ 
+		visible			1 
+		origin			320 265 
+		forecolor		1 1 1 1 
+		exp				text("^7Contact ^2Hammad Malik  ^7at") 
+		textfont		UI_FONT_OBJECTIVE 
+		textscale		0.3 
+		textalignx		8
+		textaligny		16
+		textalign		ITEM_ALIGN_CENTER
+		decoration 
+	} 
+	itemDef 
+	{ 
+		visible			1 
+		origin			320 280 
+		forecolor		1 1 1 1 
+		exp				text("03005384701") 
+		textfont		UI_FONT_OBJECTIVE 
+		textscale		0.3 
+		textalignx		8
+		textaligny		16
+		textalign		ITEM_ALIGN_CENTER
+		decoration 
+	} 
+	}
+
+
+}

@@ -1,0 +1,157 @@
+#include "ui/menudef.h"
+
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#include "ui_mp/common.inc"
+
+{
+	menuDef
+	{
+		name			"changeclass_marines_mw"
+		rect			0 0 640 480
+		focuscolor		COLOR_FOCUSED
+		style			WINDOW_STYLE_EMPTY
+		blurWorld		7.0
+		legacySplitScreenScale
+		onOpen
+		{
+			execNow "set menuName Choose a class";
+		}
+		onClose
+		{
+		}
+		onEsc
+		{
+			close self;
+			open class;
+		}
+		
+		#include "ui_mp/frame.inc"
+		
+		// separator
+		itemDef 
+		{
+			rect			319 90 2 210
+
+			style			WINDOW_STYLE_SHADER
+			background		"white"
+			forecolor		1 1 1 0.6
+			visible			1
+			decoration
+		}
+
+		itemDef 
+		{
+			rect			80 310 480 1.3
+
+			style			WINDOW_STYLE_SHADER
+			background		"white"
+			forecolor		1 1 1 0.6
+			visible			1
+			decoration
+		}
+
+		itemDef 
+		{
+			// 570 - 330 = 240
+			name			"mini_map2"
+			rect			330 80 220 180
+			background		"compass_map_default"
+			ownerdraw		CG_PLAYER_FULLMAP_MAP
+			forecolor		1 1 1 1
+			visible			1
+			decoration
+		}
+		itemDef 
+		{
+			// 570 - 330 = 240
+			rect			330 80 220 180
+			style			WINDOW_STYLE_SHADER
+			name			"mini_map2_overlay"
+			exp				material( tableLookup( "mp/mapsTable.csv", 0, dvarString( mapname ), 7 ) )
+			forecolor		1 1 1 1
+			visible			1
+			decoration
+		}
+		itemDef 
+		{
+			// 570 - 330 = 240
+			name			"compasspointers2"
+			rect			330 80 220 180
+			background		"objective_line"
+			ownerdraw		CG_PLAYER_FULLMAP_POINTERS
+			forecolor		1 1 1 1
+			visible			1
+			decoration
+		}
+		itemDef 
+		{
+			name			"compassfriendlies2"
+			rect			330 80 220 180
+			background		"compassping_friendly"
+			ownerdraw		CG_PLAYER_FULLMAP_FRIENDS
+			forecolor		1 1 1 1
+			visible			1
+			decoration
+		}
+		itemDef 
+		{
+			// 570 - 330 = 240
+			name			"compassenemies2"
+			rect			330 80 220 180
+			background		"compassping_enemy"
+			ownerdraw		CG_PLAYER_FULLMAP_ENEMIES
+			forecolor		1 1 1 1
+			visible			when( dvarbool( ui_hud_hardcore ) == 0  );
+			decoration
+		}
+		itemDef 
+		{
+			// 570 - 330 = 240
+			name			"compassplayer2"
+			rect			330 80 220 180
+			background		"compassping_player"
+			ownerdraw		CG_PLAYER_FULLMAP_PLAYER
+			forecolor		1 1 1 1
+			visible			when ( team( name ) != "TEAM_FREE" );
+			decoration
+		}
+
+//when( dvarString( "net_ip" ) == "127.0.0.1"
+		DR_BUTTON( "0", 80, 110, 180, 25, "1. ^3ASSAULT", scriptMenuResponse "assault";, when( dvarBool( allies_allow_assault ) || dvarString( loadout_curclass ) == "assault" ) )	
+		DR_BUTTON( "1", 80, 145, 180, 25, "2. ^3SPEC OPS", scriptMenuResponse "specops";, when( dvarBool( allies_allow_specops ) || dvarString( loadout_curclass ) == "specops" ) )
+
+		DR_BUTTON( "2", 80, 180, 180, 25, "3. ^3DEMOLITIONS", scriptMenuResponse "demolitions";, when( dvarBool( allies_allow_demolitions ) || dvarString( loadout_curclass ) == "demolitions" )  )
+		DR_BUTTON( "3", 80, 215, 180, 25, "4. ^3SNIPER", scriptMenuResponse "sniper";, when( dvarBool( allies_allow_sniper ) || dvarString( loadout_curclass ) == "sniper" ))
+		
+		DR_BUTTON( "4", 80, 250, 180, 25, "5. ^7Spectate Team", scriptMenuResponse "killspec";, 1 )
+		DR_BUTTON( "5", 80, 285, 180, 25, "6. ^1Back", close self; open class;, 1 )
+		
+		execKey "1" { scriptMenuResponse "assault"}
+		execKey "2" { scriptMenuResponse "specops"}
+		execKey "3" { scriptMenuResponse "demolition"}
+		execKey "4" { scriptMenuResponse "sniper"}
+		execKey "5" { scriptMenuResponse "killspec"}
+		execKey "6" { close self; open class}
+
+		itemDef
+		{
+			name			"motd"
+			visible			1
+			rect			80 320 470 140
+			forecolor		1 1 1 1
+			autowrapped
+			exp				text( dvarString("scr_menu_message") )
+			textfont		UI_FONT_OBJECTIVE
+			textscale		.32
+			textalignx		8
+			textaligny		16
+			textalign		ITEM_ALIGN_CENTER
+			decoration
+		}
+	}
+}
+
+
+	
